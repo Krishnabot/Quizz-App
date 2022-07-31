@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/Krishnabot/To-Do-List#readme",
   "dependencies": {
+    "html-webpack-partials-plugin": "^0.8.0",
     "lodash": "^4.17.21"
   },
   "jest": {
