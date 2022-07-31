@@ -3,9 +3,10 @@ const choices = document.querySelectorAll(".choice-text");
 
 let currentQuestion = {};
 let acceptingAnswers = false;
-let score = 0;
 let questionCounter = 0;
 let availableQuesions = [];
+
+// static Questions
 
 const questions = [
   {
@@ -35,18 +36,10 @@ const questions = [
   },
 ];
 
-// CONSTANTS
-const CORRECT_BONUS = 10;
 const MAX_QUESTIONS = 3;
-
-const startGame = () => {
-  availableQuesions = [...questions];
-  getNewQuestion();
-};
 
 const getNewQuestion = () => {
   if (availableQuesions.length === 0 || questionCounter >= MAX_QUESTIONS) {
-    // go to the end page
     return window.location.assign("/end.html");
   }
   questionCounter += 1;
@@ -63,6 +56,11 @@ const getNewQuestion = () => {
   acceptingAnswers = true;
 };
 
+const startGame = () => {
+  availableQuesions = [...questions];
+  getNewQuestion();
+};
+
 choices.forEach((choice) => {
   choice.addEventListener("click", (e) => {
     if (!acceptingAnswers) return;
@@ -70,7 +68,18 @@ choices.forEach((choice) => {
     acceptingAnswers = false;
     const selectedChoice = e.target;
     const selectedAnswer = selectedChoice.dataset.number;
-    getNewQuestion();
+
+    let classToApply = "incorrect";
+    // eslint-disable-next-line eqeqeq
+    if (selectedAnswer == currentQuestion.answer) {
+      classToApply = "correct";
+    }
+    selectedChoice.parentElement.classList.add(classToApply);
+
+    setTimeout(() => {
+      selectedChoice.parentElement.classList.remove(classToApply);
+      getNewQuestion();
+    }, 1000);
   });
 });
 
