@@ -1,26 +1,36 @@
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const HtmlWebpackPartialsPlugin = require("html-webpack-partials-plugin");
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: "./src/index.js",
+  entry: {
+    index: './src/index.js',
+    end: './src/modules/end.js',
+  },
 
-  mode: "development",
+  mode: 'development',
   devServer: {
-    static: "./dist",
+    static: './dist',
   },
   plugins: [
     new HtmlWebpackPlugin({
-      filename: "index.html",
-      template: "./src/index.html",
+      filename: 'index.html',
+      template: './src/index.html',
       minify: {
         removeComments: true,
         collapseWhitespace: true,
       },
     }),
     new HtmlWebpackPlugin({
-      template: "./src/views/partials/game.html",
-      filename: "game.html",
+      template: './src/views/partials/game.html',
+      filename: 'game.html',
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true,
+      },
+    }),
+    new HtmlWebpackPlugin({
+      template: './src/views/partials/end.html',
+      filename: 'end.html',
       minify: {
         removeComments: true,
         collapseWhitespace: true,
@@ -28,19 +38,19 @@ module.exports = {
     }),
   ],
   output: {
-    path: path.resolve(__dirname, "dist"),
-    filename: "[name].js",
+    path: path.resolve(__dirname, 'dist'),
+    filename: '[name].bundle.js',
     clean: true,
   },
   module: {
     rules: [
       {
         test: /\.css$/i,
-        use: ["style-loader", "css-loader"],
+        use: ['style-loader', 'css-loader'],
       },
     ],
   },
   optimization: {
-    runtimeChunk: "single",
+    runtimeChunk: 'single',
   },
 };

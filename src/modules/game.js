@@ -1,8 +1,9 @@
-const question = document.querySelector('#question');
-const choices = document.querySelectorAll('.choice-text');
+/* eslint-disable no-use-before-define */
+const question = document.querySelector("#question");
+const choices = document.querySelectorAll(".choice-text");
 let score = 0;
-const scoreText = document.querySelector('#score');
-const questionCounterText = document.querySelector('#questionCounter');
+const scoreText = document.querySelector("#score");
+const questionCounterText = document.querySelector("#questionCounter");
 let currentQuestion = {};
 let acceptingAnswers = false;
 let questionCounter = 0;
@@ -12,11 +13,11 @@ let availableQuesions = [];
 
 const questions = [
   {
-    question: 'Inside which HTML element do we put the JavaScript??',
-    choice1: '<script>',
-    choice2: '<javascript>',
-    choice3: '<js>',
-    choice4: '<scripting>',
+    question: "Inside which HTML element do we put the JavaScript??",
+    choice1: "<script>",
+    choice2: "<javascript>",
+    choice3: "<js>",
+    choice4: "<scripting>",
     answer: 1,
   },
   {
@@ -41,9 +42,11 @@ const questions = [
 const MAX_QUESTIONS = 3;
 const CORRECT_REWARD = 10;
 
+// eslint-disable-next-line consistent-return
 const getNewQuestion = () => {
   if (availableQuesions.length === 0 || questionCounter >= MAX_QUESTIONS) {
-    return window.location.assign('/end.html');
+    localStorage.setItem("mostRecentScore", score);
+    return window.location.assign("/end.html");
   }
   questionCounter += 1;
   questionCounterText.innerHTML = `${questionCounter}/${MAX_QUESTIONS}`;
@@ -65,20 +68,25 @@ const startGame = () => {
   getNewQuestion();
 };
 
+const IncreamentScore = (num) => {
+  score += num;
+  scoreText.innerText = score;
+};
+
 choices.forEach((choice) => {
-  choice.addEventListener('click', (e) => {
+  choice.addEventListener("click", (e) => {
     if (!acceptingAnswers) return;
 
     acceptingAnswers = false;
     const selectedChoice = e.target;
     const selectedAnswer = selectedChoice.dataset.number;
 
-    let classToApply = 'incorrect';
+    let classToApply = "incorrect";
     // eslint-disable-next-line eqeqeq
     if (selectedAnswer == currentQuestion.answer) {
-      classToApply = 'correct';
+      classToApply = "correct";
     }
-    if (classToApply === 'correct') {
+    if (classToApply === "correct") {
       IncreamentScore(CORRECT_REWARD);
     }
     selectedChoice.parentElement.classList.add(classToApply);
@@ -86,13 +94,8 @@ choices.forEach((choice) => {
     setTimeout(() => {
       selectedChoice.parentElement.classList.remove(classToApply);
       getNewQuestion();
-    }, 1000);
+    }, 500);
   });
 });
-
-const IncreamentScore = (num) => {
-  score += num;
-  scoreText.innerHTML = score;
-};
 
 export default startGame;
