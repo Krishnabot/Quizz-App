@@ -5,6 +5,7 @@ module.exports = {
   entry: {
     index: './src/index.js',
     end: './src/modules/end.js',
+    game: './src/modules/game.js',
   },
 
   mode: 'development',
