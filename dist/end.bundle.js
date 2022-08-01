@@ -1,4 +1,3 @@
-"use strict";
 /*
  * ATTENTION: The "eval" devtool has been used (maybe by default in mode: "development").
  * This devtool is neither made for production nor for readable output files.
@@ -13,9 +12,9 @@
 /*!****************************!*\
   !*** ./src/modules/end.js ***!
   \****************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (() => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\nconst username = document.querySelector('#username');\nconst saveScoreBtn = document.querySelector('#saveScoreBtn');\nconst mostRecentScore = localStorage.getItem('mostRecentScore');\nconst finalScore = document.querySelector('#finalScore');\nfinalScore.innerHTML = mostRecentScore;\n\nusername.addEventListener('keyup', () => {\n  saveScoreBtn.disabled = !username.value;\n});\nconst saveHighScore = (event) => {\n  event.preventDefault();\n};\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (saveScoreBtn);\n\n\n//# sourceURL=webpack://to-do-list/./src/modules/end.js?");
+eval("const username = document.querySelector('#username');\nconst saveScoreBtn = document.querySelector('#saveScoreBtn');\nconst finalScore = document.querySelector('#finalScore');\nconst mostRecentScore = localStorage.getItem('mostRecentScore');\nfinalScore.innerText = mostRecentScore;\n\nusername.addEventListener('keyup', () => {\n  saveScoreBtn.disabled = !username.value;\n});\n\nconst saveHighScore = (e) => {\n  e.preventDefault();\n};\n\n\n//# sourceURL=webpack://to-do-list/./src/modules/end.js?");
 
 /***/ })
 
