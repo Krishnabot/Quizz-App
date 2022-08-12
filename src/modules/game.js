@@ -1,15 +1,15 @@
+/* eslint-disable no-plusplus */
 /* eslint-disable no-use-before-define */
-const question = document.querySelector("#question");
-const choices = document.querySelectorAll(".choice-text");
-let score = 0;
-const scoreText = document.querySelector("#score");
-const questionCounterText = document.querySelector("#questionCounter");
+const question = document.getElementById("question");
+const choices = Array.from(document.getElementsByClassName("choice-text"));
+const progressText = document.getElementById("progressText");
+const scoreText = document.getElementById("score");
+const progressBarFull = document.getElementById("progressBarFull");
 let currentQuestion = {};
 let acceptingAnswers = false;
+let score = 0;
 let questionCounter = 0;
 let availableQuesions = [];
-
-// static Questions
 
 const questions = [
   {
@@ -39,17 +39,28 @@ const questions = [
   },
 ];
 
+// CONSTANTS
+const CORRECT_BONUS = 10;
 const MAX_QUESTIONS = 3;
-const CORRECT_REWARD = 10;
 
-// eslint-disable-next-line consistent-return
+const startGame = () => {
+  questionCounter = 0;
+  score = 0;
+  availableQuesions = [...questions];
+  getNewQuestion();
+};
+
 const getNewQuestion = () => {
   if (availableQuesions.length === 0 || questionCounter >= MAX_QUESTIONS) {
     localStorage.setItem("mostRecentScore", score);
+    // go to the end page
     return window.location.assign("/end.html");
   }
-  questionCounter += 1;
-  questionCounterText.innerHTML = `${questionCounter}/${MAX_QUESTIONS}`;
+  questionCounter++;
+  progressText.innerText = `Question ${questionCounter}/${MAX_QUESTIONS}`;
+  // Update the progress bar
+  progressBarFull.style.width = `${(questionCounter / MAX_QUESTIONS) * 100}%`;
+
   const questionIndex = Math.floor(Math.random() * availableQuesions.length);
   currentQuestion = availableQuesions[questionIndex];
   question.innerText = currentQuestion.question;
@@ -63,16 +74,6 @@ const getNewQuestion = () => {
   acceptingAnswers = true;
 };
 
-const startGame = () => {
-  availableQuesions = [...questions];
-  getNewQuestion();
-};
-
-const IncreamentScore = (num) => {
-  score += num;
-  scoreText.innerText = score;
-};
-
 choices.forEach((choice) => {
   choice.addEventListener("click", (e) => {
     if (!acceptingAnswers) return;
@@ -81,21 +82,25 @@ choices.forEach((choice) => {
     const selectedChoice = e.target;
     const selectedAnswer = selectedChoice.dataset.number;
 
-    let classToApply = "incorrect";
-    // eslint-disable-next-line eqeqeq
-    if (selectedAnswer == currentQuestion.answer) {
-      classToApply = "correct";
-    }
+    const classToApply =
+      selectedAnswer == currentQuestion.answer ? "correct" : "incorrect";
+
     if (classToApply === "correct") {
-      IncreamentScore(CORRECT_REWARD);
+      incrementScore(CORRECT_BONUS);
     }
+
     selectedChoice.parentElement.classList.add(classToApply);
 
     setTimeout(() => {
       selectedChoice.parentElement.classList.remove(classToApply);
       getNewQuestion();
-    }, 500);
+    }, 1000);
   });
 });
+
+const incrementScore = (num) => {
+  score += num;
+  scoreText.innerText = score;
+};
 
 export default startGame;
