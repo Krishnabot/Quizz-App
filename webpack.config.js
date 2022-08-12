@@ -6,6 +6,7 @@ module.exports = {
     index: './src/index.js',
     end: './src/modules/end.js',
     game: './src/modules/game.js',
+    highscore: './src/modules/highscore.js',
   },
 
   mode: 'development',
@@ -32,6 +33,14 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/views/partials/end.html',
       filename: 'end.html',
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true,
+      },
+    }),
+    new HtmlWebpackPlugin({
+      template: './src/views/partials/highscore.html',
+      filename: 'highscore.html',
       minify: {
         removeComments: true,
         collapseWhitespace: true,
