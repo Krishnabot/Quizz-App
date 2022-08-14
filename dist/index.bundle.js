@@ -115,17 +115,7 @@ eval("\n\n/* istanbul ignore next  */\nfunction styleTagTransform(css, styleElem
   \**********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.css */ \"./src/style.css\");\n/* harmony import */ var _modules_game_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/game.js */ \"./src/modules/game.js\");\n/* harmony import */ var _modules_end_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/end.js */ \"./src/modules/end.js\");\n\n\n\n// import saveScoreBtn from \"./modules/end.js\";\n\n(0,_modules_game_js__WEBPACK_IMPORTED_MODULE_1__[\"default\"])();\n(0,_modules_end_js__WEBPACK_IMPORTED_MODULE_2__[\"default\"])();\n\n\n//# sourceURL=webpack://to-do-list/./src/index.js?");
-
-/***/ }),
-
-/***/ "./src/modules/end.js":
-/*!****************************!*\
-  !*** ./src/modules/end.js ***!
-  \****************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\nconst username = document.querySelector('#username');\nconst saveScoreBtn = document.querySelector('#saveScoreBtn');\nconst finalScore = document.querySelector('#finalScore');\nconst mostRecentScore = localStorage.getItem('mostRecentScore');\nfinalScore.innerText = mostRecentScore;\n\nconst highScores = JSON.parse(localStorage.getItem(\"highScores\")) || [];\n\nusername.addEventListener('keyup', () => {\n  saveScoreBtn.disabled = !username.value;\n});\n\nconst saveHighScore = (e) => {\n  e.preventDefault();\n\n  const score = {\n    score: mostRecentScore,\n    name: username.value,\n  };\n  highScores.push(score);\n  highScores.sort((a, b) => b.score - a.score);\n  highScores.splice(5);\n\n  localStorage.setItem(\"highScores\", JSON.stringify(highScores));\n};\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (saveHighScore);\n\n\n//# sourceURL=webpack://to-do-list/./src/modules/end.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.css */ \"./src/style.css\");\n/* harmony import */ var _modules_game__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/game */ \"./src/modules/game.js\");\n\n\n// import saveScoreBtn from \"./modules/end.js\";\n\n(0,_modules_game__WEBPACK_IMPORTED_MODULE_1__[\"default\"])();\n\n\n//# sourceURL=webpack://to-do-list/./src/index.js?");
 
 /***/ }),
 
